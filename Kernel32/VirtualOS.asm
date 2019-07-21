@@ -1,0 +1,46 @@
+[ORG 0X00]
+[BITS 16]
+
+SECTION .text
+
+JMP 0X1000:START
+
+SECTOR_COUNT:	DW 0X0000
+TOTAL_SECTOR_COUNT	EQU 1024
+
+;LINE_NUMBER:	DW 80
+;CHAR_SIZE:		DW 2
+
+VIDEO_ACCESS:	DW 0XB800
+
+START:
+	MOV AX, CS
+	MOV DS, AX
+	
+	MOV AX, 0xB800
+	MOV ES, AX
+
+	%assign I 0
+	%rep TOTAL_SECTOR_COUNT
+		%assign	I I + 1
+
+		;MOV AX, CHAR_SIZE
+		MOV AX, 2
+
+		MUL WORD [SECTOR_COUNT]
+		MOV SI, AX
+
+		;MOV BYTE [ES:SI + (LINE_NUMBER * CHAR_SIZE * 2)], '0' + (I % 10)
+		MOV BYTE [ES:SI + (160 * 2)], '0' + (I % 10)
+		ADD WORD [SECTOR_COUNT], 1
+	
+		%if I == TOTAL_SECTOR_COUNT
+
+			JMP $
+		%else
+			JMP ( 0X1000 + I * 0X20 ):0X0000
+		%endif
+
+		TIMES ( 512 - ( $ - $$ ) % 512 )	DB 0X00
+
+	%endrep
