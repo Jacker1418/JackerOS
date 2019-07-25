@@ -2,7 +2,7 @@
 
 void printString(int in_x, int in_y, const char* in_string);
 
-void main(void){
+void Main(void){
 
 	printString(0, 3, "First C Source Code in Kernel32");
 

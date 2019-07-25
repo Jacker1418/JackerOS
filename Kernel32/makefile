@@ -13,12 +13,12 @@ PREPARE:
 	mkdir -p $(OBJECT_DIR)
 
 $(OBJECT_DIR)/EntryPoint.bin:$(SOURCE_DIR)/EntryPoint.s
-	@echo ===== (OBJECT_DIR)/EntryPoint.bin Label =====
+	@echo ===== EntryPoint.bin Label =====
 	$(NASM32) -o $@ $<
 
 dep:
 	@echo ==== Make Dependancy File ====
-	make -C $(OBJECT_DIR) -f ../makefile InternalDependancy
+	make -C $(OBJECT_DIR) -f ../makefile Internal_Dependency
 	@echo === Dependancy Search Complete ===
 
 Excute_Internal_Build: dep
@@ -26,6 +26,7 @@ Excute_Internal_Build: dep
 	make -C $(OBJECT_DIR) -f ../makefile Kernel32.elf
 
 $(OBJECT_DIR)/Kernel32.elf.bin: Excute_Internal_Build
+	@echo ====== Kernel32.elf.bin Label =========
 	$(OBJCOPY32) $(OBJECT_DIR)/Kernel32.elf $@
 
 Kernel32.bin: $(OBJECT_DIR)/EntryPoint.bin $(OBJECT_DIR)/Kernel32.elf.bin
@@ -43,11 +44,11 @@ COBJECT_FILES = $(subst Main.o, ,$(notdir $(patsubst %.c, %.o, $(CSOURCE_FILES))
 ASSEMBLY_OBJECT_FILES = $(notdir $(patsubst %.asm, %.o, $(ASSEMBLY_SOURCE_FILES)))
 
 %.o: ../$(SOURCE_DIR)/%.c
-	@echo ===== %.o(.c) Label =====
+	@echo ===== (.c) Label =====
 	$(GCC32) -c $<
 
 %.o: ../$(SOURCE_DIR)/%.asm
-	@echo ===== %.o(.asm) Label =====
+	@echo ===== (.asm) Label =====
 	$(NASM32) -f elf32 -o $@ $<
 
 Internal_Dependency:
