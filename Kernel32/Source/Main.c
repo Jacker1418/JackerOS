@@ -18,6 +18,6 @@ void printString(int in_x, int in_y, const char* in_string){
 	pScreen += (in_y * 80) + in_x;
 
 	for(i = 0; in_string[i] != 0; i++){
-		pScreen[i].pCharactor = in_string[i];
+		pScreen[i].bCharacter = in_string[i];
 	}
 }

@@ -31,9 +31,8 @@ SECTIONS
     *(.data .data.* .gnu.linkonce.d.*)
     SORT(CONSTRUCTORS)
   }
-  .data1          : { *(.data1) }
-  _edata = .; PROVIDE (edata = .);
-  . = .;
+  .data1          : { *(.data1) } 
+  
   __bss_start = .;
   .bss            :
   {
@@ -48,7 +47,6 @@ SECTIONS
    . = ALIGN(. != 0 ? 32 / 8 : 1);
   }
   . = ALIGN(32 / 8);
-  . = SEGMENT_START("ldata-segment", .);
   . = ALIGN(32 / 8);
   _end = .; PROVIDE (end = .);
 
@@ -86,14 +84,14 @@ SECTIONS
   .init           :
   {
     KEEP (*(SORT_NONE(.init)))
-  } = 0x90909090
+  }
   .plt            : { *(.plt) *(.iplt) }
   .plt.got        : { *(.plt.got) }
   
   .fini           :
   {
     KEEP (*(SORT_NONE(.fini)))
-  } = 0x90909090
+  }
   PROVIDE (__etext = .);
   PROVIDE (_etext = .);
   PROVIDE (etext = .);
@@ -122,6 +120,8 @@ SECTIONS
   /* Relocation Section (Start) */
 
   /* Thread Local Storage sections  */
+  _edata = .; PROVIDE (edata = .);
+
   .tdata	  : { *(.tdata .tdata.* .gnu.linkonce.td.*) }
   .tbss		  : { *(.tbss .tbss.* .gnu.linkonce.tb.*) *(.tcommon) }
 
@@ -159,7 +159,7 @@ SECTIONS
   .data.rel.ro : { *(.data.rel.ro.local* .gnu.linkonce.d.rel.ro.local.*) *(.data.rel.ro .data.rel.ro.* .gnu.linkonce.d.rel.ro.*) }
   .dynamic        : { *(.dynamic) }
   .got            : { *(.got) *(.igot) }
-  . = DATA_SEGMENT_RELRO_END (SIZEOF (.got.plt) >= 12 ? 12 : 0, .);
+  
   .got.plt        : { *(.got.plt)  *(.igot.plt) }
   
   /* Relocation Section (STart) */

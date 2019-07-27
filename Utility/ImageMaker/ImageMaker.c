@@ -32,7 +32,7 @@ int main(int argc, char* argv[]){
 
 	printf("[INFO] Copy bootloader to image file\n");
 
-	if((fdSource == open ( argv[1], O_RDONLY )) == -1){
+	if((fdSource = open ( argv[1], O_RDONLY )) == -1){
 		fprintf(stderr, "[ERROR] %s open fail\n", argv[1]);
 		exit(-1);
 	}
@@ -121,7 +121,7 @@ int Copy_File(int in_source_fd, int in_target_fd){
 	while(1){
 	
 		Read = read(in_source_fd, vcBuffer, sizeof(vcBuffer));
-		Write = write(in_source_fd, vcBuffer, Read);
+		Write = write(in_target_fd, vcBuffer, Read);
 
 		if(Read != Write){
 			fprintf( stderr, "[ERROR] Read != Write..\n");
