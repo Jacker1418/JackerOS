@@ -1,4 +1,5 @@
 #include "Types.h"
+#include "Page.h"
 
 void printString(int in_x, int in_y, const char* in_string);
 BOOL Initialize_Kernel64_Area(void);
@@ -30,6 +31,13 @@ void Main(void){
 
 		while(1);
 	}
+	numLine++;
+
+	printString(0, numLine, "IA-32e Page Table Initialize................[    ]");
+	initializePageTable();
+	printString(45, numLine, "PASS");
+
+	while(1);
 }
 
 void printString(int in_x, int in_y, const char* in_string){
