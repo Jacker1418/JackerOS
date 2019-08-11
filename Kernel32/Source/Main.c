@@ -132,14 +132,6 @@ void copyKernel64_Image(void){
 	countTotalKernel_Sector = *( (WORD *) 0x7C05);
 	countKernel32_Sector = *( (WORD *) 0x7C07);
 
-	if(countTotalKernel_Sector == 7){
-		printString(0, 12, "countTotalKernel_Sector = 7");
-	}
-
-	if(countKernel32_Sector == 6){
-		printString(0, 13, "countKernel32_Sector = 6");
-	}
-
 	pdwSourceAddress = (DWORD *)( 0x10000 + (countKernel32_Sector * 512) );
 	pdwDestinationAddress = (DWORD *) 0x200000;
 
