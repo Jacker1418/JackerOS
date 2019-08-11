@@ -27,7 +27,7 @@ void initializePageTable(void){
 
     pPD_Entry = (PD *)(0x102000);
     mappingAddress = 0;
-    for(i = 0; i < PAGE_MAX_ENTRY_COUNT; i++){
+    for(i = 0; i < PAGE_MAX_ENTRY_COUNT * 64; i++){
         setPageEntryData( &(pPD_Entry[i]), (i * (PAGE_DEFULAT_SIZE >> 20) ) >> 12, mappingAddress, PAGE_FLAGS_DEFAULT | PAGE_FLAGS_PS, 0);
         mappingAddress += PAGE_DEFULAT_SIZE;
     }
