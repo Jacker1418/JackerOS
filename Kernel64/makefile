@@ -52,7 +52,7 @@ $(ENTRYPOINTOBJECTFILE): $(ENTRYPOINTSOURCEFILE)
 %.o: ../$(SOURCEDIRECTORY)/%.asm
 	@echo
 	@echo =========== %.asm Label ===========
-	$(NASM64) -f elf32 -o $@ $<
+	$(NASM64) -o $@ $<
 
 InternalDependency:
 	@echo
