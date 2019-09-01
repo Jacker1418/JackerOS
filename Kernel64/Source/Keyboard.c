@@ -139,7 +139,7 @@ void enableA20Gate(void){
 
     outputPortData = inPortByte(0x60);
 
-    outputPortData |= 0x01;
+    outputPortData != 0x02;
 
     for( i = 0; i < 0xFFFF; i++){
         if(isInputBuffer_Full() == FALSE){
